@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
+
 using System.Collections.Generic;
 using System.IO;
 
@@ -14,17 +14,23 @@ namespace TopSpotsAPI.Controllers
         public IEnumerable<TopSpot> Get()
         {
             TopSpot[] topspots = JsonConvert.DeserializeObject<TopSpot[]>(File.ReadAllText(@"C:\dev\13-TopSpotsAPI\TopSpotsAPI\JSON\sandiego.json"));
-
+            
 
             return topspots;
             
         }
 
         //Post /api/vehicles
-        //public TopSpot Post([FromBody]TopSpot topspot)
-        //{
-        //    return topspot;
-        //}
+        public void Post([FromBody]TopSpot[] topspots)
+        {
+            string text = JsonConvert.SerializeObject(topspots);
+
+            File.WriteAllText(@"C:\dev\13-TopSpotsAPI\TopSpotsAPI\JSON\sandiego.json", text);
+
+
+
+
+        }
 
     }
 }
